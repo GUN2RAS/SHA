@@ -1,0 +1,17 @@
+.gradle/
+build/
+bin/
+out/
+.idea/
+*.iml
+*.iws
+.vscode/
+
+run/
+tmp.gradle
+tmp2.gradle
+tmp_props.gradle
+sha_rapier/target/
+
+clean_comments.py
+humanize.py

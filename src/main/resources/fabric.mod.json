@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "sha",
+  "version": "${version}",
+  "name": "Sodium Hologram API",
+  "description": "Zero-Tick Native LevelChunk Spoofing framework for Fabric and Sodium.",
+  "authors": [
+    "gun2rus"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/sha/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.sha.SHAMain"
+    ],
+    "client": [
+      "net.sha.SHA"
+    ]
+  },
+  "mixins": [
+    "sha.mixins.json"
+  ],
+  "accessWidener": "sha.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.14.22",
+    "minecraft": "*",
+    "java": ">=21",
+    "sodium": "*"
+  }
+}

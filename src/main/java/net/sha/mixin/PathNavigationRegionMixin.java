@@ -1,0 +1,62 @@
+package net.sha.mixin;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.PathNavigationRegion;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.sha.api.HologramProvider;
+import net.sha.api.SHAHologramManager;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
+
+@Mixin(PathNavigationRegion.class)
+public class PathNavigationRegionMixin {
+
+    @Inject(method = "getBlockState", at = @At("HEAD"), cancellable = true)
+    private void spoofPathBlockState(BlockPos pos, CallbackInfoReturnable<BlockState> cir) {
+        List<HologramProvider> providers = SHAHologramManager.getIntersectingProviders(
+            new net.minecraft.world.phys.AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1)
+        );
+        if (!providers.isEmpty()) {
+            for (int i = 0; i < providers.size(); i++) {
+                HologramProvider provider = providers.get(i);
+                if (provider.isActive() && provider.providesCollision()) {
+                    net.sha.api.HologramBounds bounds = provider.getBounds();
+                    if (bounds == null || bounds.contains(pos.getX(), pos.getY(), pos.getZ())) {
+                        BlockState spoofed = provider.getSpoofedBlock(pos.getX(), pos.getY(), pos.getZ());
+                        if (spoofed != null && !spoofed.isAir()) {
+                            cir.setReturnValue(spoofed);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Inject(method = "getFluidState", at = @At("HEAD"), cancellable = true)
+    private void spoofPathFluidState(BlockPos pos, CallbackInfoReturnable<FluidState> cir) {
+        List<HologramProvider> providers = SHAHologramManager.getIntersectingProviders(
+            new net.minecraft.world.phys.AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1)
+        );
+        if (!providers.isEmpty()) {
+            for (int i = 0; i < providers.size(); i++) {
+                HologramProvider provider = providers.get(i);
+                if (provider.isActive() && provider.providesCollision()) {
+                    net.sha.api.HologramBounds bounds = provider.getBounds();
+                    if (bounds == null || bounds.contains(pos.getX(), pos.getY(), pos.getZ())) {
+                        BlockState spoofed = provider.getSpoofedBlock(pos.getX(), pos.getY(), pos.getZ());
+                        if (spoofed != null && !spoofed.isAir()) {
+                            cir.setReturnValue(spoofed.getFluidState());
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
