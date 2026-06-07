@@ -1,0 +1,43 @@
+{
+  "required": true,
+  "package": "net.sha.mixin",
+  "compatibilityLevel": "JAVA_21",
+    "client": [
+      "SodiumWorldSliceMixin",
+      "LevelRendererLightMixin",
+      "EntityLightMixin",
+      "LevelChunkSectionAirMixin",
+      "RenderSectionManagerMixin",
+      "RenderSectionManagerAccessor",
+      "LevelSliceMixin",
+      "MirageSodiumHandoffMixin",
+      "MirageEntitySuppressionMixin",
+      "MirageBlockEntitySuppressionMixin",
+      "ChunkBuilderMixin",
+      "MirageLoadingScreenMixin",
+      "MultiPlayerGameModeMixin",
+      "OcclusionCullerMixin",
+      "TraversableTreeMixin",
+      "TreeAccessor",
+      "physics.MinecraftMixin",
+      "ClientChunkCacheMixin",
+      "ClientChunkCacheBiomeMixin",
+      "render.ChunkTrackerMixin",
+      "render.ChunkTrackerInvoker"
+    ],
+    "mixins": [
+      "physics.EntityMoveMixin",
+      "physics.EntityRaycastMixin",
+      "BlockCollisionsMixin",
+      "BlockBreakInterceptorMixin",
+      "RaycastInterceptorMixin",
+      "FluidInterceptorMixin",
+      "LevelFluidInterceptorMixin",
+      "PathNavigationRegionMixin",
+      "EntitySuffocationMixin",
+      "AbstractBlockStateMixin"
+    ],
+    "injectors": {
+    "defaultRequire": 1
+  }
+}

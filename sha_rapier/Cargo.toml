@@ -1,0 +1,12 @@
+[package]
+name = "sha_rapier"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+lazy_static = "1.4.0"
+rapier3d = { version = "0.22", features = ["simd-stable", "parallel", "wasm-bindgen", "serde-serialize"] }
+nalgebra = "0.33"
